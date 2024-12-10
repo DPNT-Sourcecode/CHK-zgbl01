@@ -11,6 +11,3 @@ class TestSum:
 
     def test_sum_answer_type(self):
         assert isinstance(sum_solution.compute(1, 2), int) 
-
-
-

@@ -9,6 +9,3 @@ def compute(x: int, y: int) -> int:
         {int} - a sum of two inputs
     """
     return x + y
-
-
-
