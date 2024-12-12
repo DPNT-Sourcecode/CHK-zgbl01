@@ -66,8 +66,9 @@ def checkout(skus: str) -> int:
         return -1
 
     total_price = 0
-    sku_items = Counter()
+    sku_items = Counter(skus)
     for item, count in sku_items.items():
         total_price += calculate_item_price(item, count)
 
     return total_price
+
