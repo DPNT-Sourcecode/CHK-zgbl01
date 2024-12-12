@@ -44,7 +44,12 @@ def test_checkout_lowercase_items(items):
     assert checkout(items) == -1
 
 
-@pytest.mark.parametrize("items", ["", "-"])
+@pytest.mark.parametrize("items", list("- %^&*()"))
 def test_checkout_invalid_chars(items):
     assert checkout(items) == -1
+
+
+def test_checkoutno_item():
+    assert checkout("") == 0
+
 
