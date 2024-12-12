@@ -73,7 +73,8 @@ def test_checkout_no_item():
         ("EE", 80),
     ]
 )
-def test_checkout_free_items(items):
-    assert checkout(items) == 0
+def test_checkout_free_items(items, expected_amount):
+    assert checkout(items) == expected_amount
+
 
 

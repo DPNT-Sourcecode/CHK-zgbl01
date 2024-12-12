@@ -22,8 +22,8 @@ FREE_ITEMS = {
 }
 
 
-def calculate_free_items(count: int, free_item_allowance: dict[str, int]) -> None:
-    free_item_allowance["item"] = count // free_item_allowance["items_needed"]
+def calculate_free_items(count: int, freebies: dict[str, int]) -> None:
+    freebies["item"] = count // FREE_ITEMS["items_needed"]
 
 
 def is_valid_items(items: str) -> bool:
@@ -68,13 +68,15 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     """
     discounts = DISCOUNTS.get(item)
     free_item_allowance = FREE_ITEMS.get(item)
+
+    freebies = {}
     
     if free_items is not None:
         # We ignore the freebies as they do not impact the total price
-        calculate_free_items(count, free_item_allowance)
+        calculate_free_items(count, freebies)
 
     if discounts is not None:
-        return calculate_discounted_price(item, count, discounts, free_items)
+        return calculate_discounted_price(item, count, discounts, freebies)
    
 
     return count * PRICE[item]
@@ -95,3 +97,4 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
