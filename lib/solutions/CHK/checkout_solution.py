@@ -40,9 +40,9 @@ def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) 
 
     remaining_items = int(count)
     total_price = 0
-
+    print(discount)
     for quantity_needed, offer in discount.items():
-        offer_quantity = count // quantity_needed
+        offer_quantity = remaining_items // quantity_needed
         if offer_quantity > 0:
             total_price += offer_quantity * offer
             remaining_items -= offer_quantity
@@ -81,6 +81,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
 
 
