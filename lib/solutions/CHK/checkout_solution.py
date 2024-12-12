@@ -9,11 +9,18 @@ PRICE = {
     "B": 30,
     "C": 20,
     "D": 15,
+    "E": 40,
 }
 
 SPECIAL_OFFERS = {
-    "A": {"quantity": 3, "price": 130},
-    "B": {"quantity": 2, "price": 45},
+    "A": {
+        "discounts": {
+            5: 200,
+            3: 130,
+            }
+    },
+    "B": {"discounts": {2: 45}},
+    "E": {"free_items": {2: "B"}},
 }
 
 
@@ -68,3 +75,4 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
