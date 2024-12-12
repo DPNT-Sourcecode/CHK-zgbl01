@@ -56,7 +56,7 @@ def calculate_item_price(item: str, count: int) -> int:
     Returns the total amount based on the input
     item and the number of items needed
     """
-    offers = SPECIAL_OFFERS.get(item)
+    offers = SPECIAL_OFFERS.get(item, {})
     
     discounts = offers.get("discounts")
     free_items = offers.get("free_items")
@@ -84,5 +84,6 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
 
