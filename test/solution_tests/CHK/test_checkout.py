@@ -31,4 +31,3 @@ def test_checkout_item_D(skus, expected_amount):
 def test_checkout_invalid_items():
     assert checkout("ABCDE") == -1 
 
-
