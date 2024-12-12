@@ -17,20 +17,18 @@ SPECIAL_OFFERS = {
 
 
 def is_valid_items(items: str) -> bool:
-    valid_items = str(PRICE.keys())
+    valid_items = "".join(list(PRICE.keys()))
     invalid_items = items.replace(valid_items, "")
-    return bool(invalid_items)
+    return not bool(invalid_items)
 
 
 def checkout(skus: str) -> int:
     items = skus.upper()
-
     if not is_valid_items(items):
         return -1
 
-    sku_items = Counter(skus.upper())
-
     total_price = 0
+    sku_items = Counter(skus.upper())
     for item, count in sku_items.items():
 
         discounts = SPECIAL_OFFERS.get(item)
@@ -39,16 +37,12 @@ def checkout(skus: str) -> int:
             discount_price = apply_offer_quntity * discounts["price"]
 
             items_no_discount = count % discounts["quantity"]
-            non_discounted_price = items_no_discount * PRICE.get(item, 0)
+            non_discounted_price = items_no_discount * PRICE[item]
             total_price += discount_price + non_discounted_price
         else:
-            try:
-                item_price = PRICE[item]
-            except IndexError:
-                return -1
-
-            total_price += count * item_price       
+            total_price += count * PRICE[item]
 
     return total_price
     
+
 
