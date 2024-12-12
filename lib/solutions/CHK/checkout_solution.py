@@ -32,11 +32,21 @@ def is_valid_items(items: str) -> bool:
     return not bool(invalid_items)
 
 
-def calculate_discounter_price(item: str, count: int, discount: dict[str, int]) -> int:
+def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) -> int:
     """
     Returns the total amount for a
     given item with an applied discount
     """
+
+    remaining_items = int(item)
+    total_price = 0
+
+    for quantity_needed, offer in discount.items():
+        offer_quantity = count // quantity_needed
+        if offer_quantity > 0:
+            
+
+
     apply_offer_quntity = count // discount["quantity"]
     discount_price = apply_offer_quntity * discount["price"]
 
@@ -53,7 +63,7 @@ def calculate_item_price(item: str, count: int) -> int:
     offers = SPECIAL_OFFERS.get(item)
     if offers:
         discounts = offers.get("discount")
-        return calculate_discounter_price(item, count, discounts)
+        return calculate_discounted_price(item, count, discounts)
     else:
         return count * PRICE[item]
 
@@ -71,5 +81,6 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
 
