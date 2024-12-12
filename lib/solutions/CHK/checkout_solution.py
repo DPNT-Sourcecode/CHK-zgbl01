@@ -30,22 +30,34 @@ def checkout(skus: str) -> int:
     if not is_valid_items(items):
         return -1
 
+
+def calculate_item_price(item: str, count: int) -> int:
+    discount = SPECIAL_OFFERS.get(item)
+    if discount:
+        apply_offer_quntity = count // discount["quantity"]
+        discount_price = apply_offer_quntity * discount["price"]
+
+        items_no_discount = count % discount["quantity"]
+        non_discounted_price = items_no_discount * PRICE[item]
+        return discount_price + non_discounted_price
+    else:
+        return count * PRICE[item]
+
+
+
+def calculate(skus: str) -> int:
+    items = skus.upper()
+
+    if not is_valid_items(items):
+        return -1
+
     total_price = 0
     sku_items = Counter(skus.upper())
     for item, count in sku_items.items():
-
-        discounts = SPECIAL_OFFERS.get(item)
-        if discounts:
-            apply_offer_quntity = count // discounts["quantity"]
-            discount_price = apply_offer_quntity * discounts["price"]
-
-            items_no_discount = count % discounts["quantity"]
-            non_discounted_price = items_no_discount * PRICE[item]
-            total_price += discount_price + non_discounted_price
-        else:
-            total_price += count * PRICE[item]
-
+        total_price += calculate_item_price(item, count)
+       
     return total_price
     
+
 
 

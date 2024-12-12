@@ -28,6 +28,8 @@ def test_checkout_item_D(skus, expected_amount):
     assert checkout(skus) == expected_amount 
 
 
-def test_checkout_invalid_items():
-    assert checkout("ABCDE") == -1 
+@pytest.mark.parametrize("items", ["AAE", "E", "XYZ", "123"])
+def test_checkout_invalid_items(items):
+    assert checkout(items) == -1 
+
 
