@@ -2,6 +2,7 @@
 # skus = unicode string
 
 import re
+from typing import Union
 from collections import Counter
 
 PRICE = {
@@ -22,8 +23,8 @@ FREE_ITEMS = {
 }
 
 
-def calculate_free_items(count: int, freebies: dict[str, int]) -> None:
-    freebies["item"] = count // FREE_ITEMS["items_needed"]
+def calculate_free_items(item: str, count: int, free_item_offer: dict[str, Union[str, int]], freebies: dict[str, int]) -> None:
+    freebies[item] = count // free_item_offer["items_needed"]
 
 
 def is_valid_items(items: str) -> bool:
@@ -67,13 +68,13 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     item and the number of items needed
     """
     discounts = DISCOUNTS.get(item)
-    free_item_allowance = FREE_ITEMS.get(item)
+    free_items_offer = FREE_ITEMS.get(item)
 
     freebies = {}
     
-    if free_items is not None:
+    if free_items_offer is not None:
         # We ignore the freebies as they do not impact the total price
-        calculate_free_items(count, freebies)
+        calculate_free_items(item, count, free_items_offer, freebies)
 
     if discounts is not None:
         return calculate_discounted_price(item, count, discounts, freebies)
@@ -97,4 +98,5 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 

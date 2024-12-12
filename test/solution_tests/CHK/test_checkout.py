@@ -71,10 +71,12 @@ def test_checkout_no_item():
 @pytest.mark.parametrize("items,expected_amount", 
     [
         ("EE", 80),
+        ("EEB", 80),
     ]
 )
 def test_checkout_free_items(items, expected_amount):
     assert checkout(items) == expected_amount
+
 
 
 
