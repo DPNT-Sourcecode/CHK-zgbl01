@@ -16,17 +16,24 @@ SPECIAL_OFFERS = {
 }
 
 
-def apply_discounts
 
 
 def checkout(skus: str):
     sku_items = Counter(skus.upper())
 
-    for item, count in sku_items.items()
+    for item, count in sku_items.items():
+        discounts = SPECIAL_OFFERS.get(item)
+        if discounts:
+            apply_offer_quntity = count // discounts["quantity"]
+        else:
+            apply_offer_quntity = 0
+            print()
+
 
 
     print(items)
     
+
 
 
 
