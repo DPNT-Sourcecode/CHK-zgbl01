@@ -18,6 +18,10 @@ SPECIAL_OFFERS = {
 
 
 def is_valid_items(items: str) -> bool:
+    """
+    Returns a boolean indicating if the input items
+    contains illegal items.
+    """
     letters_to_remove = "".join(list(PRICE.keys()))
     re_pattern = f"[{letters_to_remove}]"
     invalid_items = re.sub(re_pattern, "", items)
@@ -25,27 +29,28 @@ def is_valid_items(items: str) -> bool:
     return not bool(invalid_items)
 
 
-def checkout(skus: str) -> int:
-    items = skus.upper()
-    if not is_valid_items(items):
-        return -1
+def calculate_discounter_price(item: str, count: int, discount: dict[str, int]) -> int:
+    """
+    Returns the total amount for a
+    given item with an applied discount
+    """
+    apply_offer_quntity = count // discount["quantity"]
+    discount_price = apply_offer_quntity * discount["price"]
+
+    items_no_discount = count % discount["quantity"]
+    non_discounted_price = items_no_discount * PRICE[item]
+    return discount_price + non_discounted_price
 
 
 def calculate_item_price(item: str, count: int) -> int:
     discount = SPECIAL_OFFERS.get(item)
     if discount:
-        apply_offer_quntity = count // discount["quantity"]
-        discount_price = apply_offer_quntity * discount["price"]
-
-        items_no_discount = count % discount["quantity"]
-        non_discounted_price = items_no_discount * PRICE[item]
-        return discount_price + non_discounted_price
+        return calculate_discounter_price(item, count, discount)
     else:
         return count * PRICE[item]
 
 
-
-def calculate(skus: str) -> int:
+def checkout(skus: str) -> int:
     items = skus.upper()
 
     if not is_valid_items(items):
@@ -55,9 +60,8 @@ def calculate(skus: str) -> int:
     sku_items = Counter(skus.upper())
     for item, count in sku_items.items():
         total_price += calculate_item_price(item, count)
-       
+
     return total_price
-    
 
 
 

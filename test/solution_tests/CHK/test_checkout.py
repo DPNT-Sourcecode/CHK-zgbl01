@@ -8,28 +8,34 @@ In production codebase, I would also mock PRICE and SPECIAL_OFFERS config, so th
 the tests are not dependent on the config.  
 """
 
-@pytest.mark.parametrize("skus,expected_amount", [("A", 50), ("A"*3, 130), ("A"*6, 260), ("A"*8, 360)])
+
+@pytest.mark.parametrize(
+    "skus,expected_amount", [("A", 50), ("A" * 3, 130), ("A" * 6, 260), ("A" * 8, 360)]
+)
 def test_checkout_item_A(skus, expected_amount):
-    assert checkout(skus) == expected_amount 
+    assert checkout(skus) == expected_amount
 
 
-@pytest.mark.parametrize("skus,expected_amount", [("B"*1, 30), ("B"*2, 45), ("B"*4, 90), ("B"*5, 120)])
+@pytest.mark.parametrize(
+    "skus,expected_amount",
+    [("B" * 1, 30), ("B" * 2, 45), ("B" * 4, 90), ("B" * 5, 120)],
+)
 def test_checkout_item_B(skus, expected_amount):
-    assert checkout(skus) == expected_amount 
+    assert checkout(skus) == expected_amount
 
 
-@pytest.mark.parametrize("skus,expected_amount", [("C", 20), ("C"*3, 60)])
+@pytest.mark.parametrize("skus,expected_amount", [("C", 20), ("C" * 3, 60)])
 def test_checkout_item_C(skus, expected_amount):
-    assert checkout(skus) == expected_amount 
+    assert checkout(skus) == expected_amount
 
 
-@pytest.mark.parametrize("skus,expected_amount", [("D", 15), ("D"*3, 45)])
+@pytest.mark.parametrize("skus,expected_amount", [("D", 15), ("D" * 3, 45)])
 def test_checkout_item_D(skus, expected_amount):
-    assert checkout(skus) == expected_amount 
+    assert checkout(skus) == expected_amount
 
 
 @pytest.mark.parametrize("items", ["AAE", "E", "XYZ", "123"])
 def test_checkout_invalid_items(items):
-    assert checkout(items) == -1 
+    assert checkout(items) == -1
 
 

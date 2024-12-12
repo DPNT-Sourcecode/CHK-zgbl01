@@ -10,4 +10,5 @@ class TestSum:
         assert sum_solution.compute(x, y) == expected_value
 
     def test_sum_answer_type(self):
-        assert isinstance(sum_solution.compute(1, 2), int) 
+        assert isinstance(sum_solution.compute(1, 2), int)
+
