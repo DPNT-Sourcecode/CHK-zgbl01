@@ -71,9 +71,3 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
-
-
-
-
-
-
