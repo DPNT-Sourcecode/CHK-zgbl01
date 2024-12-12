@@ -69,7 +69,7 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     """
     discounts = DISCOUNTS.get(item)
     if discounts is not None:
-        return calculate_discounted_price(item, count, discounts, freebies)
+        return calculate_discounted_price(item, count, discounts, free_items)
    
     return count * PRICE[item]
 
@@ -81,6 +81,11 @@ def checkout(skus: str) -> int:
     if not is_valid_items(skus):
         return -1
 
+    """
+    My Debugger keeps hanging and crashing...
+    I keep stopping the exericse and the video as I keep restarting
+    VS Code :(
+    """
 
     total_price = 0
     sku_items = Counter(skus)
@@ -95,6 +100,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
 
