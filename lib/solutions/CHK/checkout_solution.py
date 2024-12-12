@@ -57,12 +57,18 @@ def calculate_item_price(item: str, count: int) -> int:
     item and the number of items needed
     """
     offers = SPECIAL_OFFERS.get(item)
-    if offers:
-        discounts = offers.get("discounts")
-        # We ignore the freebies as they do not impact the total price
+    
+    discounts = offers.get("discounts")
+    free_items = offers.get("free_items")
+    
+    if discounts is not None:
         return calculate_discounted_price(item, count, discounts)
-    else:
-        return count * PRICE[item]
+   
+    if free_items is not None:
+        # We ignore the freebies as they do not impact the total price
+        pass
+
+    return count * PRICE[item]
 
 
 def checkout(skus: str) -> int:
@@ -78,4 +84,5 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
