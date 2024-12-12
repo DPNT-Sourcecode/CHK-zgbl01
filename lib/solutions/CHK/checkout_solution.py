@@ -16,7 +16,8 @@ SPECIAL_OFFERS = {
 }
 
 
-
+def is_valid_item(item: str) -> bool:
+    return item in PRICE
 
 
 def checkout(skus: str) -> int:
@@ -37,11 +38,10 @@ def checkout(skus: str) -> int:
                 item_price = PRICE[item]
             except IndexError:
                 return -1
-            
-            total_price += count * PRICE.get(item, 0)         
 
-    # Return -1?
+            total_price += count * item_price       
 
     return total_price
     
+
 
