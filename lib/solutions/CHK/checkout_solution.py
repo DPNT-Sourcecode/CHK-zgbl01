@@ -15,8 +15,12 @@ PRICE = {
 SPECIAL_OFFERS = {
     "A": {"discounts": {5: 200, 3: 130}},
     "B": {"discounts": {2: 45}},
-    "E": {"free_items": {"items_needed": 2, "free": "B"}},
+    "E": {"free_items": {"items_needed": 2, "item": "B"}},
 }
+
+
+def calculate_free_items(count: int, free_items: dict[str, int]) -> None:
+    free_items["item"] = count // free_items["items_needed"]
 
 
 def is_valid_items(items: str) -> bool:
@@ -32,7 +36,7 @@ def is_valid_items(items: str) -> bool:
     return not bool(invalid_items)
 
 
-def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) -> int:
+def calculate_discounted_price(item: str, count: int, discount: dict[str, int], free_items: dict[str, int]) -> int:
     """
     Returns the total amount for a
     given item with an applied discount
@@ -40,6 +44,9 @@ def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) 
 
     total_price = 0
     remaining_items = int(count)
+
+    items_for_free = free_items.get(item, 0)
+    remaining_items -= items_for_free
 
     for quantity_needed, offer in discount.items():
         offer_quantity = remaining_items // quantity_needed
@@ -51,8 +58,7 @@ def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) 
     return total_price + non_discounted_price
 
 
-def calculate_free_items(item: str, count: int, free_items: dict[str, int]) -> None:
-    offer_quantity = count // free_items
+
 
 
 def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> int:
@@ -67,10 +73,10 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     
     if free_items is not None:
         # We ignore the freebies as they do not impact the total price
-        pass
+        calculate_free_items(count, free_items)
 
     if discounts is not None:
-        return calculate_discounted_price(item, count, discounts)
+        return calculate_discounted_price(item, count, discounts, free_items)
    
 
     return count * PRICE[item]
@@ -91,6 +97,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
 
