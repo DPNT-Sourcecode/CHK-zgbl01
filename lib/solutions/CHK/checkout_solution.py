@@ -67,6 +67,11 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     Returns the total amount based on the input
     item and the number of items needed
     """
+    remaining_items = int(count)
+    free_item = free_items.get(item)
+    if free_item is not None:
+        
+
     discounts = DISCOUNTS.get(item)
     if discounts is not None:
         return calculate_discounted_price(item, count, discounts, free_items)
@@ -100,3 +105,4 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
