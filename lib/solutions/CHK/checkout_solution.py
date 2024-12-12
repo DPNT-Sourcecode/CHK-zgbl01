@@ -11,6 +11,7 @@ PRICE = {
     "C": 20,
     "D": 15,
     "E": 40,
+    "F": 10,
 }
 
 DISCOUNTS = {
@@ -20,6 +21,7 @@ DISCOUNTS = {
 
 FREE_ITEMS = {
     "E": {"items_needed": 2, "item": "B"},
+    "F": {"items_needed": 2, "item": "F"},
 }
 
 
@@ -111,6 +113,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
 
