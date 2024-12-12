@@ -78,5 +78,3 @@ def test_checkout_free_items(items, expected_amount):
     assert checkout(items) == expected_amount
 
 
-
-
