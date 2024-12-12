@@ -13,12 +13,7 @@ PRICE = {
 }
 
 SPECIAL_OFFERS = {
-    "A": {
-        "discounts": {
-            5: 200,
-            3: 130,
-            }
-    },
+    "A": {"discounts": {5: 200, 3: 130}},
     "B": {"discounts": {2: 45}},
     "E": {"free_items": {2: "B"}},
 }
@@ -55,9 +50,10 @@ def calculate_item_price(item: str, count: int) -> int:
     Returns the total amount based on the input
     item and the number of items needed
     """
-    discount = SPECIAL_OFFERS.get(item)
-    if discount:
-        return calculate_discounter_price(item, count, discount)
+    offers = SPECIAL_OFFERS.get(item)
+    if offers:
+        discounts = offers.get("discount")
+        return calculate_discounter_price(item, count, discounts)
     else:
         return count * PRICE[item]
 
@@ -75,4 +71,5 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
