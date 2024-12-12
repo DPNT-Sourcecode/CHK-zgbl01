@@ -15,7 +15,7 @@ PRICE = {
 SPECIAL_OFFERS = {
     "A": {"discounts": {5: 200, 3: 130}},
     "B": {"discounts": {2: 45}},
-    "E": {"free_items": {2: "B"}},
+    "E": {"free_items": {"items_needed": 2, "free": "B"}},
 }
 
 
@@ -51,6 +51,10 @@ def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) 
     return total_price + non_discounted_price
 
 
+def calculate_free_items(item: str, count: int, free_items: dict[str, int]) -> None:
+    offer_quantity = count // free_items
+
+
 def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> int:
     """
     Returns the total amount based on the input
@@ -61,12 +65,13 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     discounts = offers.get("discounts")
     free_items = offers.get("free_items")
     
-    if discounts is not None:
-        return calculate_discounted_price(item, count, discounts)
-   
     if free_items is not None:
         # We ignore the freebies as they do not impact the total price
         pass
+
+    if discounts is not None:
+        return calculate_discounted_price(item, count, discounts)
+   
 
     return count * PRICE[item]
 
@@ -86,6 +91,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
 
