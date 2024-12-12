@@ -43,6 +43,10 @@ def calculate_discounter_price(item: str, count: int, discount: dict[str, int]) 
 
 
 def calculate_item_price(item: str, count: int) -> int:
+    """
+    Returns the total amount based on the input
+    item and the number of items needed
+    """
     discount = SPECIAL_OFFERS.get(item)
     if discount:
         return calculate_discounter_price(item, count, discount)
@@ -51,6 +55,9 @@ def calculate_item_price(item: str, count: int) -> int:
 
 
 def checkout(skus: str) -> int:
+    """
+    Returns the total amount for the given SKUs.
+    """
     items = skus.upper()
 
     if not is_valid_items(items):
@@ -62,6 +69,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
 
 
