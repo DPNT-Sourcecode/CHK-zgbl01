@@ -10,7 +10,7 @@ the tests are not dependent on the config.
 
 
 @pytest.mark.parametrize(
-    "skus,expected_amount", [("A", 50), ("A" * 3, 130), ("A" * 6, 260), ("A" * 8, 360)]
+    "skus,expected_amount", [("A", 50), ("A" * 3, 130), ("A" * 5, 200), ("A" * 5, 200), ("A" * 6, 250), ("A" * 8, 330), ("A" * 10, 400), ("A" * 14, 580), ("A" * 15, 600)]
 )
 def test_checkout_item_A(skus, expected_amount):
     assert checkout(skus) == expected_amount
@@ -51,3 +51,4 @@ def test_checkout_invalid_chars(items):
 
 def test_checkoutno_item():
     assert checkout("") == 0
+

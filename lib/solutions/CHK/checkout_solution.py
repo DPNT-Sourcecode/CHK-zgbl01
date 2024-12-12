@@ -44,15 +44,16 @@ def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) 
     for quantity_needed, offer in discount.items():
         offer_quantity = count // quantity_needed
         if offer_quantity > 0:
-            
+            total_price += offer_quantity * offer
+            remaining_items -= offer_quantity
 
 
-    apply_offer_quntity = count // discount["quantity"]
-    discount_price = apply_offer_quntity * discount["price"]
+    # apply_offer_quntity = count // discount["quantity"]
+    # discount_price = apply_offer_quntity * discount["price"]
 
-    items_no_discount = count % discount["quantity"]
-    non_discounted_price = items_no_discount * PRICE[item]
-    return discount_price + non_discounted_price
+    # items_no_discount = count % discount["quantity"]
+    non_discounted_price = remaining_items * PRICE[item]
+    return total_price + non_discounted_price
 
 
 def calculate_item_price(item: str, count: int) -> int:
@@ -81,6 +82,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
 
 
