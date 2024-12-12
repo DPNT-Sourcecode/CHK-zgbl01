@@ -38,19 +38,15 @@ def calculate_discounted_price(item: str, count: int, discount: dict[str, int]) 
     given item with an applied discount
     """
 
-    remaining_items = int(count)
     total_price = 0
-    print(discount)
+    remaining_items = int(count)
+
     for quantity_needed, offer in discount.items():
         offer_quantity = remaining_items // quantity_needed
         if offer_quantity > 0:
             total_price += offer_quantity * offer
-            remaining_items -= offer_quantity
+            remaining_items -= quantity_needed * offer_quantity
 
-    # apply_offer_quntity = count // discount["quantity"]
-    # discount_price = apply_offer_quntity * discount["price"]
-
-    # items_no_discount = count % discount["quantity"]
     non_discounted_price = remaining_items * PRICE[item]
     return total_price + non_discounted_price
 
@@ -63,6 +59,7 @@ def calculate_item_price(item: str, count: int) -> int:
     offers = SPECIAL_OFFERS.get(item)
     if offers:
         discounts = offers.get("discounts")
+        # We ignore the freebies as they do not impact the total price
         return calculate_discounted_price(item, count, discounts)
     else:
         return count * PRICE[item]
@@ -81,3 +78,4 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
