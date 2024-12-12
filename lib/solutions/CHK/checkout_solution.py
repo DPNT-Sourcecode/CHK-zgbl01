@@ -23,8 +23,8 @@ FREE_ITEMS = {
 }
 
 
-def calculate_free_items(item: str, count: int, free_item_offer: dict[str, Union[str, int]], freebies: dict[str, int]) -> None:
-    freebies[item] = count // free_item_offer["items_needed"]
+def get_free_items(item: str, count: int, free_item_offer: dict[str, Union[str, int]], free_items: dict[str, int]) -> None:
+    free_items[item] = count // free_item_offer["items_needed"]
 
 
 def is_valid_items(items: str) -> bool:
@@ -68,18 +68,9 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     item and the number of items needed
     """
     discounts = DISCOUNTS.get(item)
-    free_items_offer = FREE_ITEMS.get(item)
-
-    freebies = {}
-    
-    if free_items_offer is not None:
-        # We ignore the freebies as they do not impact the total price
-        calculate_free_items(item, count, free_items_offer, freebies)
-
     if discounts is not None:
         return calculate_discounted_price(item, count, discounts, freebies)
    
-
     return count * PRICE[item]
 
 
@@ -90,13 +81,20 @@ def checkout(skus: str) -> int:
     if not is_valid_items(skus):
         return -1
 
-    free_items = {}
 
     total_price = 0
     sku_items = Counter(skus)
+
+    free_items = {}
+    for item, count in sku_items.items():
+        free_items_offer = FREE_ITEMS.get(item)
+        if free_items_offer is not None:
+            get_free_items(item, count, free_items_offer, free_items)
+
     for item, count in sku_items.items():
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
