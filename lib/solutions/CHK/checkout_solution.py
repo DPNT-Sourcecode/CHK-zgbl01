@@ -22,6 +22,10 @@ def is_valid_items(items: str) -> bool:
     Returns a boolean indicating if the input items
     contains illegal items.
     """
+
+    if not items:
+        return False
+
     letters_to_remove = "".join(list(PRICE.keys()))
     re_pattern = f"[{letters_to_remove}]"
     invalid_items = re.sub(re_pattern, "", items)
@@ -67,6 +71,7 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
 
 
