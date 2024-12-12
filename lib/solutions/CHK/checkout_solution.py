@@ -29,17 +29,14 @@ def checkout(skus: str):
             discount_price = apply_offer_quntity * discounts["price"]
 
             items_no_discount = count % discounts["quantity"]
-            full_price = items_no_discount * PRICE.get(item, 0)
+            non_discounted_price = items_no_discount * PRICE.get(item, 0)
+            total_price += discount_price + non_discounted_price
         else:
-            
-        
+            total_price += count * PRICE.get(item, 0)         
 
-            print()
-
-
-
-    print(items)
+    return total_price
     
+
 
 
 
