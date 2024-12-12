@@ -16,15 +16,23 @@ SPECIAL_OFFERS = {
 }
 
 
-def is_valid_item(item: str) -> bool:
-    return item in PRICE
+def is_valid_items(items: str) -> bool:
+    valid_items = str(PRICE.keys())
+    invalid_items = items.replace(valid_items, "")
+    return bool(invalid_items)
 
 
 def checkout(skus: str) -> int:
+    items = skus.upper()
+
+    if not is_valid_items(items):
+        return -1
+
     sku_items = Counter(skus.upper())
 
     total_price = 0
     for item, count in sku_items.items():
+
         discounts = SPECIAL_OFFERS.get(item)
         if discounts:
             apply_offer_quntity = count // discounts["quantity"]
@@ -43,5 +51,6 @@ def checkout(skus: str) -> int:
 
     return total_price
     
+
 
 
