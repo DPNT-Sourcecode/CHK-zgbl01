@@ -44,7 +44,6 @@ def test_checkout_item_D(skus, expected_amount):
     assert checkout(skus) == expected_amount
 
 
-
 @pytest.mark.parametrize("skus,expected_amount", [("E", 40), ("E" * 3, 120)])
 def test_checkout_item_E(skus, expected_amount):
     assert checkout(skus) == expected_amount
@@ -68,13 +67,17 @@ def test_checkout_invalid_chars(items):
 def test_checkout_no_item():
     assert checkout("") == 0
 
-@pytest.mark.parametrize("items,expected_amount", 
+
+@pytest.mark.parametrize(
+    "items,expected_amount",
     [
         ("EE", 80),
         ("EEB", 80),
-    ]
+        ("BEE", 80),
+        ("BBBEEEE", 190),
+        ("BBBEE", 125),
+    ],
 )
 def test_checkout_free_items(items, expected_amount):
     assert checkout(items) == expected_amount
-
 

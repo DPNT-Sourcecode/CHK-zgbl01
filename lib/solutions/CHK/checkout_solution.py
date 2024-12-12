@@ -23,7 +23,13 @@ FREE_ITEMS = {
 }
 
 
-def get_free_items(count: int, free_item_offer: dict[str, Union[str, int]], free_items: dict[str, int]) -> None:
+def get_free_items(
+    count: int, free_item_offer: dict[str, Union[str, int]], free_items: dict[str, int]
+) -> None:
+    """
+    Updates free_items to specifyhow many items
+    in the basket should be for free
+    """
     free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"]
 
 
@@ -40,7 +46,9 @@ def is_valid_items(items: str) -> bool:
     return not bool(invalid_items)
 
 
-def calculate_discounted_price(item: str, count: int, discount: dict[str, int], free_item_allowance: dict[str, int]) -> int:
+def calculate_discounted_price(
+    item: str, count: int, discount: dict[str, int], free_item_allowance: dict[str, int]
+) -> int:
     """
     Returns the total amount for a
     given item with an applied discount
@@ -73,7 +81,7 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     discounts = DISCOUNTS.get(item)
     if discounts is not None:
         return calculate_discounted_price(item, remaining_items, discounts, free_items)
-   
+
     return count * PRICE[item]
 
 
@@ -103,5 +111,6 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
