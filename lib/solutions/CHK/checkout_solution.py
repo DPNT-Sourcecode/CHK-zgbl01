@@ -1,6 +1,7 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 
+import re
 from collections import Counter
 
 PRICE = {
@@ -17,8 +18,10 @@ SPECIAL_OFFERS = {
 
 
 def is_valid_items(items: str) -> bool:
-    valid_items = "".join(list(PRICE.keys()))
-    invalid_items = items.replace(valid_items, "")
+    letters_to_remove = "".join(list(PRICE.keys()))
+    re_pattern = f"[{letters_to_remove}]"
+    invalid_items = re.sub(re_pattern, "", items)
+
     return not bool(invalid_items)
 
 
@@ -44,4 +47,5 @@ def checkout(skus: str) -> int:
 
     return total_price
     
+
 
