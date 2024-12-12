@@ -58,17 +58,16 @@ def checkout(skus: str) -> int:
     """
     Returns the total amount for the given SKUs.
     """
-    items = skus.upper()
-
-    if not is_valid_items(items):
+    if not is_valid_items(skus):
         return -1
 
     total_price = 0
-    sku_items = Counter(skus.upper())
+    sku_items = Counter()
     for item, count in sku_items.items():
         total_price += calculate_item_price(item, count)
 
     return total_price
+
 
 
 
