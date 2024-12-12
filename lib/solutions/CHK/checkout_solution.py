@@ -25,6 +25,7 @@ FREE_ITEMS = {
 }
 
 
+
 def get_free_items(
     count: int, free_item_offer: dict[str, Union[str, int]], free_items: dict[str, int]
 ) -> None:
@@ -77,7 +78,7 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     remaining_items = int(count)
 
     free_item = free_items.get(item)
-    if free_item is not None:
+    if free_item is not None and item:
         remaining_items -= free_item
 
     discounts = DISCOUNTS.get(item)
@@ -113,3 +114,4 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
