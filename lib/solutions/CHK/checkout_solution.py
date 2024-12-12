@@ -15,9 +15,18 @@ SPECIAL_OFFERS = {
     "B": {"quantity": 2, "price": 45},
 }
 
+
+def apply_discounts
+
+
 def checkout(skus: str):
-    items = Counter(skus.upper())
+    sku_items = Counter(skus.upper())
+
+    for item, count in sku_items.items()
+
+
     print(items)
     
+
 
 
