@@ -18,7 +18,8 @@ SPECIAL_OFFERS = {
 
 
 
-def checkout(skus: str):
+
+def checkout(skus: str) -> int:
     sku_items = Counter(skus.upper())
 
     total_price = 0
@@ -32,15 +33,15 @@ def checkout(skus: str):
             non_discounted_price = items_no_discount * PRICE.get(item, 0)
             total_price += discount_price + non_discounted_price
         else:
+            try:
+                item_price = PRICE[item]
+            except IndexError:
+                return -1
+            
             total_price += count * PRICE.get(item, 0)         
 
     # Return -1?
 
     return total_price
     
-
-
-
-
-
 
