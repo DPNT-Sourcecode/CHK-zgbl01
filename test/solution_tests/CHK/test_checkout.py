@@ -77,6 +77,3 @@ def test_checkout_free_items(items):
     assert checkout(items) == 0
 
 
-
-
-
