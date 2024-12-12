@@ -65,7 +65,18 @@ def test_checkout_invalid_chars(items):
     assert checkout(items) == -1
 
 
-def test_checkoutno_item():
+def test_checkout_no_item():
     assert checkout("") == 0
+
+@pytest.mark.parametrize("items,expected_amount", 
+    [
+        ("EE", 80),
+    ]
+)
+def test_checkout_free_items(items):
+    assert checkout(items) == 0
+
+
+
 
 
