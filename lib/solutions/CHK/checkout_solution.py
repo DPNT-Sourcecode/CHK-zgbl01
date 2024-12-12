@@ -34,6 +34,8 @@ def checkout(skus: str):
         else:
             total_price += count * PRICE.get(item, 0)         
 
+    # Return -1?
+
     return total_price
     
 
