@@ -51,5 +51,3 @@ def test_checkout_invalid_chars(items):
 
 def test_checkoutno_item():
     assert checkout("") == 0
-
-
