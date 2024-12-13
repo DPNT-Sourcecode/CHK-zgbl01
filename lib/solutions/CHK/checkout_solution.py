@@ -99,7 +99,6 @@ def calculate_discounted_price(
 
     for quantity_needed, offer in discount.items():
         offer_quantity = remaining_items // quantity_needed
-        print(offer_quantity, offer)
         if offer_quantity > 0:
             total_price += offer_quantity * offer
             remaining_items -= quantity_needed * offer_quantity
@@ -120,7 +119,6 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
         remaining_items -= free_item
 
     discounts = DISCOUNTS.get(item)
-    print(discounts)
     if discounts is not None:
         return calculate_discounted_price(item, remaining_items, discounts, free_items)
 
@@ -191,6 +189,4 @@ def checkout(skus: str) -> int:
         total_price += price
 
     return total_price
-
-checkout("KK")
 
