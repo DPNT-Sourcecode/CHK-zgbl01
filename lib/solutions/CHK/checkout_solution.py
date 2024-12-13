@@ -159,8 +159,11 @@ def check_group_discount(items: str) -> tuple[int, str]:
         if group_discount_items[last_key] == 0:
             del group_discount_items[last_key]
 
-    return group_multiples, "".join(list(remaining_items.keys()))
+    remaining_item_str = "".join(
+        item * count for item, count in remaining_items.items()
+    )
 
+    return group_multiples, remaining_item_str
 
 
 def checkout(skus: str) -> int:
@@ -186,3 +189,4 @@ def checkout(skus: str) -> int:
         total_price += price
 
     return total_price
+
