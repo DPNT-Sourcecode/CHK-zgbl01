@@ -49,6 +49,27 @@ def test_checkout_item_E(skus, expected_amount):
     assert checkout(skus) == expected_amount
 
 
+@pytest.mark.parametrize("skus,expected_amount", [("H", 10), ("HH", 20), ("H" * 5, 45), ("H" * 10, 80)])
+def test_checkout_item_H(skus, expected_amount):
+    assert checkout(skus) == expected_amount
+
+
+@pytest.mark.parametrize("skus,expected_amount", [("K", 80), ("KK", 150), ("KKK", 230)])
+def test_checkout_item_K(skus, expected_amount):
+    assert checkout(skus) == expected_amount
+
+
+@pytest.mark.parametrize("skus,expected_amount", [("N", 40), ("NN", 80), ("NNN", 120), ("NNNM", 120)])
+def test_checkout_item_N(skus, expected_amount):
+    assert checkout(skus) == expected_amount
+
+
+@pytest.mark.parametrize("skus,expected_amount", [("P", 40), ("P", 80), ("P", 120), ("P", 120)])
+def test_checkout_item_N(skus, expected_amount):
+    assert checkout(skus) == expected_amount
+
+
+
 @pytest.mark.parametrize("items", ["AAx", "e", "XYZ", "123"])
 def test_checkout_invalid_items(items):
     assert checkout(items) == -1
@@ -93,4 +114,5 @@ def test_checkout_free_items(items, expected_amount):
 )
 def test_checkout_buy_two_get_one_free(items, expected_amount):
     assert checkout(items) == expected_amount
+
 
