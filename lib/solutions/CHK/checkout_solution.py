@@ -186,7 +186,3 @@ def checkout(skus: str) -> int:
 
     total_price += group_discount_multiplier * 45
     return total_price
-
-
-
-
