@@ -187,21 +187,21 @@ def checkout(skus: str) -> int:
     """
 
     total_price = 0
-    sku_items = Counter(skus)
 
     free_items = {}
-    for item, count in sku_items.items():
+    for item, count in Counter(skus).items():
         free_items_offer = FREE_ITEMS.get(item)
         if free_items_offer is not None:
             get_free_items(item, count, free_items_offer, free_items)
 
     group_discount_multiplier, remaining_items = check_group_discount(skus)
+    total_price += group_discount_multiplier * 45
 
     for item, count in Counter(remaining_items).items():
         total_price += calculate_item_price(item, count, free_items)
 
-    total_price += group_discount_multiplier * 45
     return total_price
+
 
 
 
