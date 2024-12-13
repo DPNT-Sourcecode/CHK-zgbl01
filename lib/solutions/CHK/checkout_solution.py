@@ -33,10 +33,12 @@ def get_free_items(
     Updates free_items to specifyhow many items
     in the basket should be for free
     """
-    if free_item_offer["item"] != item:
-        free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"]
+    if free_item_offer["item"] == item:
+        # Buy n of X, get an additional X for free 
+        free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"] + 1
     else:
-        pass
+        # Buy n of X, get Y for free
+        free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"]
 
 def is_valid_items(items: str) -> bool:
     """
@@ -116,4 +118,5 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
