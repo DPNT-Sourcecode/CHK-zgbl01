@@ -29,9 +29,9 @@ PRICE = {
     "U": 40,
     "V": 50,
     "W": 20,
-    "X": 90,
-    "Y": 10,
-    "Z": 50,
+    "X": 17,
+    "Y": 20,
+    "Z": 21,
 }
 
 DISCOUNTS = {
@@ -149,12 +149,13 @@ def check_group_discount(items: str) -> tuple[int, str]:
         # charge for the cheapest items.
         last_key = list(group_discount_items.keys())[-1]
         
-        remaining_items[last_key] += 1
-        group_discount_items[last_key] -= 1
+        item_count = remaining_items.get(last_key, 0)
+        remaining_items[last_key] = item_count + 1
 
         # If the count reaches zero, we need to remove them
         # from the group_discount_items, so that we can start
         # charging for the 2nd cheapest items, etc.
+        group_discount_items[last_key] -= 1
         if group_discount_items[last_key] == 0:
             del group_discount_items[last_key]
 
@@ -198,16 +199,18 @@ def checkout(skus: str) -> int:
     total_price += group_discount_multiplier * 45
 
     print(total_price)
+    print(remaining_items)
 
     for item, count in Counter(remaining_items).items():
         price = calculate_item_price(item, count, free_items)
         print(f"{item}: {price}")
         total_price += price
 
+    print(total_price)
     return total_price
 
 
-checkout("ABCXYZ")
+checkout("ABCXYZZ")
 
 
 
