@@ -126,6 +126,10 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
 
 
 def check_group_discount(items: str) -> tuple[int, str]:
+    """
+    Evaluatesand returns  how many multiples of STXYZ are presents in the
+    items and as well as the remaining list of items 
+    """
     group_discount_items = re.sub(r"[^STXYZ]", "", items)
     group_discount = len(group_discount_items) // 3
 
@@ -167,3 +171,4 @@ def checkout(skus: str) -> int:
 
     total_price += group_discount_multiplier * 45
     return total_price
+
