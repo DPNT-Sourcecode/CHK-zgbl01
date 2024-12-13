@@ -138,7 +138,10 @@ def check_group_discount(items: str) -> tuple[int, str]:
             group_discount_items[item] = remaining_items[item]
             del remaining_items[item]
 
+    group_multiples = sum(group_discount_items.values()) % 3
 
+
+    return 0, "".join(list(remaining_items.keys()))
 
 
     # group_discount_items = re.sub(r"[^STXYZ]", "", items)
@@ -150,7 +153,7 @@ def check_group_discount(items: str) -> tuple[int, str]:
     #     index = remaining_items.index(group_item)
     #     remaining_items[index] = ""
 
-    return group_discount, "".join(remaining_items)
+    # return group_discount, "".join(remaining_items)
 
 
 def checkout(skus: str) -> int:
@@ -182,5 +185,6 @@ def checkout(skus: str) -> int:
 
     total_price += group_discount_multiplier * 45
     return total_price
+
 
 
