@@ -89,7 +89,7 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     if discounts is not None:
         return calculate_discounted_price(item, remaining_items, discounts, free_items)
 
-    return count * PRICE[item]
+    return remaining_items * PRICE[item]
 
 
 def checkout(skus: str) -> int:
@@ -118,4 +118,5 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 

@@ -87,11 +87,10 @@ def test_checkout_free_items(items, expected_amount):
     [
         ("FF", 20),
         ("FFF", 20),
-        # ("EEB", 80),
-        # ("BEE", 80),
-        # ("BBBEEEE", 190),
-        # ("BBBEE", 125),
+        ("FFFF", 30),
+        ("FFFFFF", 40),
     ],
 )
 def test_checkout_buy_two_get_one_free(items, expected_amount):
     assert checkout(items) == expected_amount
+
