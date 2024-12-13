@@ -112,8 +112,6 @@ def test_checkout_group_discount():
     assert checkout("ABCXYZ") == 45
 
 
-
-
 @pytest.mark.parametrize(
     "items,expected_amount",
     [
@@ -139,3 +137,4 @@ def test_checkout_free_items(items, expected_amount):
 )
 def test_checkout_buy_two_get_one_free(items, expected_amount):
     assert checkout(items) == expected_amount
+
