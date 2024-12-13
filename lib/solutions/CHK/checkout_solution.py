@@ -27,14 +27,16 @@ FREE_ITEMS = {
 
 
 def get_free_items(
-    count: int, free_item_offer: dict[str, Union[str, int]], free_items: dict[str, int]
+    item: str, count: int, free_item_offer: dict[str, Union[str, int]], free_items: dict[str, int]
 ) -> None:
     """
     Updates free_items to specifyhow many items
     in the basket should be for free
     """
-    free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"]
-
+    if free_item_offer["item"] != item:
+        free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"]
+    else:
+        pass
 
 def is_valid_items(items: str) -> bool:
     """
@@ -108,9 +110,10 @@ def checkout(skus: str) -> int:
     for item, count in sku_items.items():
         free_items_offer = FREE_ITEMS.get(item)
         if free_items_offer is not None:
-            get_free_items(count, free_items_offer, free_items)
+            get_free_items(item, count, free_items_offer, free_items)
 
     for item, count in sku_items.items():
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
