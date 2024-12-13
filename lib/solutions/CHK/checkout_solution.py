@@ -127,8 +127,8 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
 
 def check_group_discount(items: str) -> tuple[int, str]:
     """
-    Evaluatesand returns  how many multiples of STXYZ are presents in the
-    items and as well as the remaining list of items
+    Evaluatesand returns how many multiples of STXYZ are presents in the
+    items and as well as the remaining string of items
     """
 
     remaining_items = Counter(items)
@@ -183,13 +183,10 @@ def checkout(skus: str) -> int:
 
     for item, count in Counter(remaining_items).items():
         price = calculate_item_price(item, count, free_items)
-        print(f"{item}: {price}")
         total_price += price
 
     return total_price
 
-
-checkout("ABCXYZZ")
 
 
 
