@@ -197,10 +197,17 @@ def checkout(skus: str) -> int:
     group_discount_multiplier, remaining_items = check_group_discount(skus)
     total_price += group_discount_multiplier * 45
 
+    print(total_price)
+
     for item, count in Counter(remaining_items).items():
-        total_price += calculate_item_price(item, count, free_items)
+        price = calculate_item_price(item, count, free_items)
+        print(f"{item}: {price}")
+        total_price += price
 
     return total_price
+
+
+checkout("ABCXYZ")
 
 
 
