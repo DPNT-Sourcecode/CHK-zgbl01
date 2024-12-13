@@ -135,7 +135,6 @@ def check_group_discount(items: str) -> tuple[int, str]:
         index = remaining_items.index(group_item)
         remaining_items[index] = ""
 
-
     return group_discount, "".join(remaining_items)
 
 
@@ -154,7 +153,6 @@ def checkout(skus: str) -> int:
 
     total_price = 0
     sku_items = Counter(skus)
-    
 
     free_items = {}
     for item, count in sku_items.items():
@@ -169,6 +167,7 @@ def checkout(skus: str) -> int:
 
     total_price += group_discount_multiplier * 45
     return total_price
+
 
 
 
