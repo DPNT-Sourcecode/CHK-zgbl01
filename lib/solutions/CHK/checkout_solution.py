@@ -130,14 +130,25 @@ def check_group_discount(items: str) -> tuple[int, str]:
     Evaluatesand returns  how many multiples of STXYZ are presents in the
     items and as well as the remaining list of items 
     """
-    group_discount_items = re.sub(r"[^STXYZ]", "", items)
-    group_discount = len(group_discount_items) // 3
 
-    remaining_items = list(items)
-    for x in range(len(group_discount_items)):
-        group_item = group_discount_items[x]
-        index = remaining_items.index(group_item)
-        remaining_items[index] = ""
+    remaining_items = Counter(items)
+    group_discount_items = {}
+    for item in "ZYSTX":
+        if remaining_items[item] > 0:
+            group_discount_items[item] = remaining_items[item]
+            del remaining_items[item]
+
+
+
+
+    # group_discount_items = re.sub(r"[^STXYZ]", "", items)
+    # group_discount = len(group_discount_items) // 3
+
+    # remaining_items = list(items)
+    # for x in range(len(group_discount_items)):
+    #     group_item = group_discount_items[x]
+    #     index = remaining_items.index(group_item)
+    #     remaining_items[index] = ""
 
     return group_discount, "".join(remaining_items)
 
@@ -171,4 +182,5 @@ def checkout(skus: str) -> int:
 
     total_price += group_discount_multiplier * 45
     return total_price
+
 
