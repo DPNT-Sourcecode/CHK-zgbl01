@@ -128,7 +128,7 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
 def check_group_discount(items: str) -> tuple[int, str]:
     """
     Evaluatesand returns  how many multiples of STXYZ are presents in the
-    items and as well as the remaining list of items 
+    items and as well as the remaining list of items
     """
 
     remaining_items = Counter(items)
@@ -148,7 +148,7 @@ def check_group_discount(items: str) -> tuple[int, str]:
         # Work backwards with the last key, because we want to
         # charge for the cheapest items.
         last_key = list(group_discount_items.keys())[-1]
-        
+
         item_count = remaining_items.get(last_key, 0)
         remaining_items[last_key] = item_count + 1
 
@@ -162,17 +162,6 @@ def check_group_discount(items: str) -> tuple[int, str]:
     return group_multiples, "".join(list(remaining_items.keys()))
 
 
-    # group_discount_items = re.sub(r"[^STXYZ]", "", items)
-    # group_discount = len(group_discount_items) // 3
-
-    # remaining_items = list(items)
-    # for x in range(len(group_discount_items)):
-    #     group_item = group_discount_items[x]
-    #     index = remaining_items.index(group_item)
-    #     remaining_items[index] = ""
-
-    # return group_discount, "".join(remaining_items)
-
 
 def checkout(skus: str) -> int:
     """
@@ -180,12 +169,6 @@ def checkout(skus: str) -> int:
     """
     if not is_valid_items(skus):
         return -1
-
-    """
-    My Debugger keeps hanging and crashing...
-    I keep stopping the exericse and the video as I keep restarting
-    VS Code :(
-    """
 
     total_price = 0
 
@@ -198,19 +181,16 @@ def checkout(skus: str) -> int:
     group_discount_multiplier, remaining_items = check_group_discount(skus)
     total_price += group_discount_multiplier * 45
 
-    print(total_price)
-    print(remaining_items)
-
     for item, count in Counter(remaining_items).items():
         price = calculate_item_price(item, count, free_items)
         print(f"{item}: {price}")
         total_price += price
 
-    print(total_price)
     return total_price
 
 
 checkout("ABCXYZZ")
+
 
 
 

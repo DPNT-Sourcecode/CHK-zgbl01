@@ -124,7 +124,16 @@ def test_checkout_no_item():
 
 @pytest.mark.parametrize(
     "skus,expected_amount",
-    [("ABCXYZ", 145), ("ABCXYZZ", 162), ("ABCXXYZ", 162), ("ABCXYYZ", 165)],
+    [
+        ("ABCXYZ", 145),
+        ("ABCXYZZ", 162),
+        ("ABCXXYZ", 162),
+        ("ABCXYYZ", 162),
+        ("ABCXXSY", 162),
+        ("ABCXTSY", 162),
+        ("XYZSTX", 90),
+        ("XYZSTXZ", 107),
+    ],
 )
 def test_checkout_group_discount(skus, expected_amount):
     assert checkout(skus) == expected_amount
@@ -155,4 +164,5 @@ def test_checkout_free_items(items, expected_amount):
 )
 def test_checkout_buy_two_get_one_free(items, expected_amount):
     assert checkout(items) == expected_amount
+
 
