@@ -125,7 +125,9 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
     return remaining_items * PRICE[item]
 
 
-def apply_group_discount()
+def check_group_discount(items: str) -> int:
+    group_discount_items = re.sub(r"[STXYZ]", "", items)
+    print()
 
 
 def checkout(skus: str) -> int:
@@ -143,6 +145,8 @@ def checkout(skus: str) -> int:
 
     total_price = 0
     sku_items = Counter(skus)
+    
+    check_group_discount(skus)
 
     free_items = {}
     for item, count in sku_items.items():
@@ -150,10 +154,10 @@ def checkout(skus: str) -> int:
         if free_items_offer is not None:
             get_free_items(item, count, free_items_offer, free_items)
 
-    check_group_discount(sku_items)
 
     for item, count in sku_items.items():
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
