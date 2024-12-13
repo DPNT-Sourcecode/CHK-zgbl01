@@ -35,7 +35,7 @@ def get_free_items(
     """
     if free_item_offer["item"] == item:
         # Buy n of X, get an additional X for free 
-        free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"] + 1
+        free_items[free_item_offer["item"]] = count // (free_item_offer["items_needed"] + 1)
     else:
         # Buy n of X, get Y for free
         free_items[free_item_offer["item"]] = count // free_item_offer["items_needed"]
@@ -73,8 +73,6 @@ def calculate_discounted_price(
     non_discounted_price = remaining_items * PRICE[item]
     return total_price + non_discounted_price
 
-"""
-VSCODE debugger crashed again!"""
 
 def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> int:
     """
@@ -120,3 +118,4 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
