@@ -73,6 +73,8 @@ def calculate_discounted_price(
     non_discounted_price = remaining_items * PRICE[item]
     return total_price + non_discounted_price
 
+"""
+VSCODE debugger crashed again!"""
 
 def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> int:
     """
@@ -118,5 +120,6 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
