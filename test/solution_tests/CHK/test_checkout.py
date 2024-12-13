@@ -13,7 +13,9 @@ the tests are not dependent on the config.
     "skus,expected_amount",
     [
         ("A", 50),
-        ("A" * 3, 130),
+        ("AA", 100),
+        ("AAA", 130),
+        ("AAAA", 180),
         ("A" * 5, 200),
         ("A" * 6, 250),
         ("A" * 8, 330),
@@ -164,5 +166,3 @@ def test_checkout_free_items(items, expected_amount):
 )
 def test_checkout_buy_two_get_one_free(items, expected_amount):
     assert checkout(items) == expected_amount
-
-
