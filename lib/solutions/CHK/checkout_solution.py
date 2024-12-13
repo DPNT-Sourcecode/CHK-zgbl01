@@ -126,8 +126,8 @@ def calculate_item_price(item: str, count: int, free_items: dict[str, int]) -> i
 
 
 def check_group_discount(items: str) -> int:
-    group_discount_items = re.sub(r"[STXYZ]", "", items)
-    print()
+    group_discount_items = re.sub(r"[^STXYZ]", "", items)
+    print(group_discount_items)
 
 
 def checkout(skus: str) -> int:
@@ -159,5 +159,6 @@ def checkout(skus: str) -> int:
         total_price += calculate_item_price(item, count, free_items)
 
     return total_price
+
 
 
